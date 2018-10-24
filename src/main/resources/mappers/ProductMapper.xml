@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.fyb.pojo.Product" >
     <constructor >
       <idArg column="id" jdbcType="INTEGER" javaType="java.lang.Integer" />
-      <arg column="category_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="category_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="subtitle" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="main_image" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -161,6 +161,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+
   <update id="updateByPrimaryKey" parameterType="com.fyb.pojo.Product" >
     update product
     set category_id = #{categoryId,jdbcType=INTEGER},
@@ -183,7 +184,6 @@
     from product
     ORDER BY id asc
   </select>
-
 
   <select id="selectByNameAndProductId" resultMap="BaseResultMap" parameterType="map">
     SELECT
@@ -214,4 +214,13 @@
       </foreach>
     </if>
   </select>
+
+  <select id="selectStockByProductId" resultType="int" parameterType="java.lang.Integer">
+    select
+    stock
+    from mmall_product
+    where id = #{id}
+    for update
+  </select>
+
 </mapper>
